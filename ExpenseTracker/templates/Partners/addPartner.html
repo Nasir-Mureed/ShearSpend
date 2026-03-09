@@ -1,0 +1,909 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Partner - ShareSpend{% endblock %}
+
+{% block extra_css %}
+<style>
+    .page-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 30px 0;
+        margin-top: -1px;
+        color: white;
+    }
+
+    .page-header-content {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .back-link {
+        display: inline-flex;
+        align-items: center;
+        color: white;
+        text-decoration: none;
+        font-size: 14px;
+        margin-bottom: 20px;
+        background: rgba(255, 255, 255, 0.2);
+        padding: 8px 16px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+
+    .back-link:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: translateX(-5px);
+        color: white;
+    }
+
+    .back-link i {
+        margin-right: 8px;
+        font-size: 12px;
+    }
+
+    .page-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .page-subtitle {
+        font-size: 1.1rem;
+        opacity: 0.9;
+        max-width: 600px;
+    }
+
+    .form-container {
+        max-width: 600px;
+        margin: -50px auto 50px;
+        padding: 0 20px;
+        position: relative;
+        z-index: 10;
+    }
+
+    .form-card {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        overflow: hidden;
+    }
+
+    .form-header {
+        background: #f8faff;
+        padding: 25px 30px;
+        border-bottom: 1px solid #e8eaf6;
+    }
+
+    .form-header h3 {
+        color: #333;
+        font-size: 1.3rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 5px;
+    }
+
+    .form-header h3 i {
+        color: #667eea;
+        font-size: 24px;
+    }
+
+    .form-header p {
+        color: #666;
+        font-size: 14px;
+        margin-left: 34px;
+    }
+
+    .form-body {
+        padding: 30px;
+    }
+
+    /* Avatar Preview Section */
+    .avatar-section {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+        margin-bottom: 30px;
+        padding: 20px;
+        background: #f8faff;
+        border-radius: 15px;
+        flex-wrap: wrap;
+    }
+
+    .avatar-preview {
+        position: relative;
+    }
+
+    .avatar-circle {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 36px;
+        font-weight: 600;
+        box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        transition: all 0.3s ease;
+    }
+
+    .avatar-circle.small {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+    }
+
+    .avatar-label {
+        color: #666;
+        font-size: 13px;
+        margin-top: 10px;
+        text-align: center;
+    }
+
+    .avatar-info {
+        flex: 1;
+    }
+
+    .avatar-info h4 {
+        color: #333;
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 5px;
+    }
+
+    .avatar-info p {
+        color: #666;
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    /* Form Groups */
+    .form-group {
+        margin-bottom: 25px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 8px;
+        color: #333;
+        font-weight: 600;
+        font-size: 14px;
+    }
+
+    label i {
+        margin-right: 8px;
+        color: #667eea;
+        font-size: 16px;
+    }
+
+    .input-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+
+    .input-icon {
+        position: absolute;
+        left: 15px;
+        color: #999;
+        font-size: 16px;
+        transition: color 0.3s ease;
+        z-index: 1;
+    }
+
+    input, textarea {
+        width: 100%;
+        padding: 14px 15px 14px 45px;
+        border: 2px solid #e1e1e1;
+        border-radius: 12px;
+        font-size: 15px;
+        transition: all 0.3s ease;
+        font-family: inherit;
+        background: white;
+    }
+
+    textarea {
+        padding-top: 14px;
+        resize: vertical;
+        min-height: 100px;
+    }
+
+    input:hover, textarea:hover {
+        border-color: #b0b0b0;
+    }
+
+    input:focus, textarea:focus {
+        outline: none;
+        border-color: #667eea;
+        box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+    }
+
+    input:focus + .input-icon,
+    textarea:focus + .input-icon {
+        color: #667eea;
+    }
+
+    /* Optional field indicator */
+    .optional-badge {
+        display: inline-block;
+        background: #e1e1e1;
+        color: #666;
+        font-size: 11px;
+        font-weight: 500;
+        padding: 2px 8px;
+        border-radius: 12px;
+        margin-left: 8px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    /* Helper text */
+    .helper-text {
+        font-size: 12px;
+        color: #999;
+        margin-top: 6px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .helper-text i {
+        color: #667eea;
+        font-size: 12px;
+    }
+
+    /* Character counter */
+    .char-counter {
+        text-align: right;
+        font-size: 12px;
+        color: #999;
+        margin-top: 5px;
+    }
+
+    .char-counter.warning {
+        color: #f57c00;
+    }
+
+    .char-counter.danger {
+        color: #c33;
+    }
+
+    /* Quick tips */
+    .tips-section {
+        background: #f8faff;
+        border-radius: 12px;
+        padding: 20px;
+        margin: 25px 0;
+        border: 1px solid #e8eaf6;
+    }
+
+    .tips-title {
+        color: #333;
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .tips-title i {
+        color: #667eea;
+    }
+
+    .tips-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+    }
+
+    .tip-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: #666;
+        font-size: 13px;
+    }
+
+    .tip-item i {
+        color: #2e7d32;
+        font-size: 14px;
+    }
+
+    /* Form footer */
+    .form-footer {
+        background: #f8faff;
+        padding: 20px 30px;
+        border-top: 1px solid #e8eaf6;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .btn-submit {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        padding: 14px 35px;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .btn-submit::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        transition: left 0.5s ease;
+    }
+
+    .btn-submit:hover::before {
+        left: 100%;
+    }
+
+    .btn-submit:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 15px 30px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn-submit:active {
+        transform: translateY(0);
+    }
+
+    .btn-submit i {
+        font-size: 18px;
+    }
+
+    .btn-submit:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+    }
+
+    .btn-secondary {
+        background: white;
+        color: #667eea;
+        border: 2px solid #667eea;
+        padding: 12px 25px;
+        border-radius: 10px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+    }
+
+    .btn-secondary:hover {
+        background: #f8faff;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(102, 126, 234, 0.2);
+    }
+
+    /* Error states */
+    .error-message {
+        color: #c33;
+        font-size: 13px;
+        margin-top: 6px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .error-message i {
+        font-size: 14px;
+    }
+
+    input.error, textarea.error {
+        border-color: #c33;
+        background-color: #fff8f8;
+    }
+
+    /* Loading state */
+    .loading-spinner {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border: 3px solid rgba(255,255,255,0.3);
+        border-radius: 50%;
+        border-top-color: white;
+        animation: spin 1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+
+    /* Success message */
+    .success-message {
+        background: #e8f5e9;
+        color: #2e7d32;
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        animation: slideDown 0.3s ease-out;
+    }
+
+    @keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Recent partners list */
+    .recent-partners {
+        margin-top: 30px;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        overflow: hidden;
+    }
+
+    .recent-header {
+        padding: 15px 20px;
+        background: #f8faff;
+        border-bottom: 1px solid #e8eaf6;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .recent-header h4 {
+        color: #333;
+        font-size: 14px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .recent-header h4 i {
+        color: #667eea;
+    }
+
+    .recent-list {
+        padding: 15px;
+    }
+
+    .recent-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .recent-item:last-child {
+        border-bottom: none;
+    }
+
+    .recent-info {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .recent-avatar {
+        width: 35px;
+        height: 35px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: 600;
+    }
+
+    .recent-details h5 {
+        color: #333;
+        font-size: 14px;
+        font-weight: 500;
+        margin-bottom: 2px;
+    }
+
+    .recent-details span {
+        color: #999;
+        font-size: 11px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .page-title {
+            font-size: 2rem;
+        }
+
+        .avatar-section {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .form-body {
+            padding: 20px;
+        }
+
+        .form-footer {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .btn-submit, .btn-secondary {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .tips-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .page-title {
+            font-size: 1.5rem;
+        }
+
+        .form-header {
+            padding: 20px;
+        }
+
+        .form-body {
+            padding: 15px;
+        }
+
+        .avatar-circle {
+            width: 60px;
+            height: 60px;
+            font-size: 28px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<div class="page-header">
+    <div class="page-header-content">
+        <a href="{% url 'Dashboard:dashboard' %}" class="back-link">
+            <i class="fas fa-arrow-left"></i>
+            Back to Dashboard
+        </a>
+        <h1 class="page-title">Add New Partner</h1>
+        <p class="page-subtitle">Add a partner to start sharing expenses with them</p>
+    </div>
+</div><br><br><br>  
+
+
+<!-- Main Form Container -->
+<div class="form-container">
+    <div class="form-card">
+        <div class="form-header">
+            <h3>
+                <i class="fas fa-user-plus"></i>
+                Partner Information
+            </h3>
+            <p>Fill in the details to add a new partner</p>
+        </div>
+
+        <!-- Display messages -->
+        {% if messages %}
+        <div style="padding: 20px 30px 0;">
+            {% for message in messages %}
+            <div class="success-message">
+                <i class="fas {% if message.tags == 'success' %}fa-check-circle{% else %}fa-info-circle{% endif %}"></i>
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <form method="post" action="{% url 'Partners:add_partner' %}" id="addPartnerForm">
+            {% csrf_token %}
+            
+            <div class="form-body">
+                <!-- Avatar Preview Section -->
+                <div class="avatar-section">
+                    <div class="avatar-preview">
+                        <div class="avatar-circle" id="avatarPreview">
+                            <span id="avatarLetter">?</span>
+                        </div>
+                        <div class="avatar-label">Partner Avatar</div>
+                    </div>
+                    <div class="avatar-info">
+                        <h4>Partner Profile</h4>
+                        <p>The avatar will be automatically generated from the first letter of the partner's name. Make it personal!</p>
+                    </div>
+                </div>
+
+                <!-- Name Field -->
+                <div class="form-group">
+                    <label for="name">
+                        <i class="fas fa-user"></i>
+                        Partner Name
+                        <span class="optional-badge">required</span>
+                    </label>
+                    <div class="input-wrapper">
+                        <input type="text" 
+                               id="name" 
+                               name="name" 
+                               placeholder="e.g., John Doe, Sarah Smith, Roommate"
+                               value="{{ name|default:'' }}"
+                               maxlength="50"
+                               required
+                               autofocus
+                               oninput="updateAvatarPreview(this.value); checkNameLength(this.value);">
+                    </div>
+                    <!-- <div class="helper-text">
+                        <i class="fas fa-info-circle"></i>
+                        Enter the full name or nickname of your partner
+                    </div> -->
+                    <div class="char-counter" id="nameCounter">
+                        0/50 characters
+                    </div>
+                    {% if errors.name %}
+                    <div class="error-message">
+                        <i class="fas fa-exclamation-circle"></i>
+                        {{ errors.name }}
+                    </div>
+                    {% endif %}
+                </div>
+
+                <!-- Email Field (Optional) -->
+                <!-- <div class="form-group">
+                    <label for="email">
+                        <i class="fas fa-envelope"></i>
+                        Email Address
+                        <span class="optional-badge">optional</span>
+                    </label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-envelope input-icon"></i>
+                        <input type="email" 
+                               id="email" 
+                               name="email" 
+                               placeholder="partner@example.com"
+                               value="{{ email|default:'' }}"
+                               maxlength="254">
+                    </div>
+                    <div class="helper-text">
+                        <i class="fas fa-info-circle"></i>
+                        Adding an email helps identify partners and enables future features
+                    </div>
+                </div> -->
+
+                <!-- Notes Field (Optional) -->
+                <!-- <div class="form-group">
+                    <label for="notes">
+                        <i class="fas fa-sticky-note"></i>
+                        Notes
+                        <span class="optional-badge">optional</span>
+                    </label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-pencil-alt input-icon"></i>
+                        <textarea id="notes" 
+                                  name="notes" 
+                                  placeholder="Add any notes about this partner (e.g., roommate, colleague, friend from college...)">{{ notes|default:'' }}</textarea>
+                    </div>
+                    <div class="helper-text">
+                        <i class="fas fa-info-circle"></i>
+                        Helpful for remembering who this partner is
+                    </div>
+                </div> -->
+
+                <!-- Quick Tips -->
+                <!-- <div class="tips-section">
+                    <div class="tips-title">
+                        <i class="fas fa-lightbulb"></i>
+                        Partner Management Tips
+                    </div>
+                    <div class="tips-grid">
+                        <div class="tip-item">
+                            <i class="fas fa-check-circle"></i>
+                            Use real names for easy identification
+                        </div>
+                        <div class="tip-item">
+                            <i class="fas fa-check-circle"></i>
+                            Add email for partner notifications
+                        </div>
+                        <div class="tip-item">
+                            <i class="fas fa-check-circle"></i>
+                            You can add unlimited partners
+                        </div>
+                        <div class="tip-item">
+                            <i class="fas fa-check-circle"></i>
+                            Partners can be edited anytime
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+
+            <div class="form-footer">
+                <button type="submit" class="btn-submit" id="submitBtn">
+                    <i class="fas fa-user-plus"></i>
+                    Add Partner
+                </button>
+                <a href="{% url 'Dashboard:dashboard' %}" class="btn-secondary">
+                    <i class="fas fa-times"></i>
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+
+    <!-- Recent Partners List (if any) -->
+    {% if recent_partners %}
+    <div class="recent-partners">
+        <div class="recent-header">
+            <h4>
+                <i class="fas fa-history"></i>
+                Recently Added Partners
+            </h4>
+            <a href="{% url 'Partners:list_partners' %}" class="btn-secondary" style="padding: 6px 15px; font-size: 12px;">
+                View All
+            </a>
+        </div>
+        <div class="recent-list">
+            {% for partner in recent_partners %}
+            <div class="recent-item">
+                <div class="recent-info">
+                    <div class="recent-avatar">
+                        {{ partner.name|first|upper }}
+                    </div>
+                    <div class="recent-details">
+                        <h5>{{ partner.name }}</h5>
+                        <span>Added {{ partner.created_at|timesince }} ago</span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Update avatar preview in real-time
+    function updateAvatarPreview(name) {
+        const avatarLetter = document.getElementById('avatarLetter');
+        if (name && name.trim().length > 0) {
+            avatarLetter.textContent = name.trim()[0].toUpperCase();
+        } else {
+            avatarLetter.textContent = '?';
+        }
+    }
+
+    // Check name length and update counter
+    function checkNameLength(name) {
+        const counter = document.getElementById('nameCounter');
+        const length = name.length;
+        counter.textContent = `${length}/50 characters`;
+        
+        // Update color based on length
+        counter.classList.remove('warning', 'danger');
+        if (length > 45) {
+            counter.classList.add('danger');
+        } else if (length > 40) {
+            counter.classList.add('warning');
+        }
+    }
+
+    // Form validation and submission handling
+    document.getElementById('addPartnerForm').addEventListener('submit', function(e) {
+        const name = document.getElementById('name');
+        const email = document.getElementById('email');
+        const submitBtn = document.getElementById('submitBtn');
+        
+        let isValid = true;
+        let errorMessage = '';
+
+        // Validate name (required)
+        if (!name.value || name.value.trim().length < 2) {
+            isValid = false;
+            errorMessage = 'Please enter a valid partner name (at least 2 characters).';
+            name.classList.add('error');
+        }
+
+        // Validate email format if provided
+        if (email.value && !isValidEmail(email.value)) {
+            isValid = false;
+            errorMessage = errorMessage || 'Please enter a valid email address.';
+            email.classList.add('error');
+        }
+
+        if (!isValid) {
+            e.preventDefault();
+            alert(errorMessage);
+            return;
+        }
+
+        // Show loading state
+        submitBtn.innerHTML = '<span class="loading-spinner"></span> Adding Partner...';
+        submitBtn.disabled = true;
+    });
+
+    // Email validation helper
+    function isValidEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+    }
+
+    // Remove error class on input
+    document.getElementById('name').addEventListener('input', function() {
+        this.classList.remove('error');
+    });
+
+    document.getElementById('email').addEventListener('input', function() {
+        this.classList.remove('error');
+    });
+
+    // Auto-hide messages after 5 seconds
+    setTimeout(function() {
+        const messages = document.querySelectorAll('.success-message');
+        messages.forEach(function(message) {
+            message.style.transition = 'opacity 0.5s';
+            message.style.opacity = '0';
+            setTimeout(function() {
+                if (message.parentNode) {
+                    message.remove();
+                }
+            }, 500);
+        });
+    }, 5000);
+
+    // Add keyboard shortcut (Ctrl+Enter to submit)
+    document.addEventListener('keydown', function(e) {
+        if (e.ctrlKey && e.key === 'Enter') {
+            const form = document.getElementById('addPartnerForm');
+            if (form) {
+                form.dispatchEvent(new Event('submit'));
+            }
+        }
+    });
+
+    // Initialize avatar preview on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        const nameInput = document.getElementById('name');
+        if (nameInput.value) {
+            updateAvatarPreview(nameInput.value);
+            checkNameLength(nameInput.value);
+        }
+    });
+
+    // Prevent special characters in name (optional)
+    document.getElementById('name').addEventListener('keydown', function(e) {
+        // Allow letters, spaces, hyphens, and apostrophes
+        const key = e.key;
+        const isLetter = /^[a-zA-Z\s\-']$/.test(key);
+        const isControlKey = e.key === 'Backspace' || e.key === 'Delete' || e.key === 'ArrowLeft' || e.key === 'ArrowRight' || e.key === 'Tab';
+        
+        if (!isLetter && !isControlKey && key !== 'Shift' && key !== 'CapsLock') {
+            e.preventDefault();
+        }
+    });
+</script>
+{% endblock %}

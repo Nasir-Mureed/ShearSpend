@@ -1,0 +1,267 @@
+{% extends "base.html" %}
+
+{% block title %}ShareSpend - Smart Expense Sharing{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="gradient-bg text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+                <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-6">
+                    Split Expenses with<br>Friends, Simply
+                </h1>
+                <p class="text-xl text-purple-100 mb-8">
+                    ShareSpend makes it easy to track shared expenses, see who owes what, and settle up with friends and roommates.
+                </p>
+                <div class="flex flex-wrap centred">
+                    <a href="{% url 'Authentication:register' %}" class="bg-white text-purple-600 px-8 py-3 rounded-lg font-semibold hover:shadow-xl transition-all hover-lift">
+                        Get Started Free
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                    
+                </div>
+                <!-- <div class="flex items-center mt-8 text-sm">
+                    <div class="flex -space-x-2">
+                        <div class="w-8 h-8 bg-purple-300 rounded-full border-2 border-white flex items-center justify-center text-xs font-bold text-purple-800">JD</div>
+                        <div class="w-8 h-8 bg-purple-300 rounded-full border-2 border-white flex items-center justify-center text-xs font-bold text-purple-800">MK</div>
+                        <div class="w-8 h-8 bg-purple-300 rounded-full border-2 border-white flex items-center justify-center text-xs font-bold text-purple-800">SL</div>
+                        <div class="w-8 h-8 bg-purple-300 rounded-full border-2 border-white flex items-center justify-center text-xs font-bold text-purple-800">+5k</div>
+                    </div>
+                    <span class="ml-4 text-purple-100">Trusted by 5,000+ users</span>
+                </div> -->
+            </div>
+            <div class="hidden md:block">
+                <!-- Dashboard Preview -->
+                <div class="bg-white rounded-xl shadow-2xl p-6 transform rotate-3 hover:rotate-0 transition-all">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-gray-800 font-semibold">Trip to Skardu</h3>
+                        <span class="text-green-500 font-bold">₹12,450</span>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600">Nasir paid</span>
+                            <span class="font-semibold text-gray-800">₹5,200</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600">Jahnzaib paid</span>
+                            <span class="font-semibold text-gray-800">₹3,800</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600">Imran paid</span>
+                            <span class="font-semibold text-gray-800">₹3,450</span>
+                        </div>
+                        <div class="border-t pt-3">
+                            <div class="text-sm text-gray-500">Settlement</div>
+                            <div class="text-orange-500">Imran owes John ₹875</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<!-- <section class="py-12 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div>
+                <div class="text-3xl md:text-4xl font-bold text-purple-600">₹10M+</div>
+                <div class="text-gray-500 mt-2">Expenses Tracked</div>
+            </div>
+            <div>
+                <div class="text-3xl md:text-4xl font-bold text-purple-600">50K+</div>
+                <div class="text-gray-500 mt-2">Happy Users</div>
+            </div>
+            <div>
+                <div class="text-3xl md:text-4xl font-bold text-purple-600">100K+</div>
+                <div class="text-gray-500 mt-2">Expenses Split</div>
+            </div>
+            <div>
+                <div class="text-3xl md:text-4xl font-bold text-purple-600">4.8</div>
+                <div class="text-gray-500 mt-2">User Rating</div>
+            </div>
+        </div>
+    </div>
+</section> -->
+
+<!-- Features Section -->
+<section id="features" class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">Everything you need to manage shared expenses</h2>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                Powerful features that make expense sharing simple, transparent, and hassle-free
+            </p>
+        </div>
+        
+        <div class="grid md:grid-cols-3 gap-8">
+            <!-- Feature 1 -->
+            <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-lg transition-all hover-lift">
+                <div class="w-12 h-12 gradient-bg rounded-lg flex items-center justify-center text-white mb-4">
+                    <i class="fas fa-users text-xl"></i>
+                </div>
+                <h3 class="text-xl font-semibold mb-2">Partner Management</h3>
+                <p class="text-gray-600 mb-4">
+                    Add and manage partners easily. Track who's in your expense group.
+                </p>
+                <ul class="text-sm text-gray-500 space-y-2">
+                    <li><i class="fas fa-check text-green-500 mr-2"></i> Add unlimited partners</li>
+                    <li><i class="fas fa-check text-green-500 mr-2"></i> Partner contributions</li>
+                    <li><i class="fas fa-check text-green-500 mr-2"></i> Easy updates</li>
+                </ul>
+            </div>
+            
+            <!-- Feature 2 -->
+            <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-lg transition-all hover-lift">
+                <div class="w-12 h-12 gradient-bg rounded-lg flex items-center justify-center text-white mb-4">
+                    <i class="fas fa-receipt text-xl"></i>
+                </div>
+                <h3 class="text-xl font-semibold mb-2">Smart Expense Tracking</h3>
+                <p class="text-gray-600 mb-4">
+                    Add expenses with descriptions, split equally among selected partners.
+                </p>
+                <ul class="text-sm text-gray-500 space-y-2">
+                    <li><i class="fas fa-check text-green-500 mr-2"></i> Auto-calculate shares</li>
+                    <li><i class="fas fa-check text-green-500 mr-2"></i> Date-wise tracking</li>
+                    <li><i class="fas fa-check text-green-500 mr-2"></i> Edit/delete expenses</li>
+                </ul>
+            </div>
+            
+            <!-- Feature 3 -->
+            <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-lg transition-all hover-lift">
+                <div class="w-12 h-12 gradient-bg rounded-lg flex items-center justify-center text-white mb-4">
+                    <i class="fas fa-chart-pie text-xl"></i>
+                </div>
+                <h3 class="text-xl font-semibold mb-2">Real-time Reports</h3>
+                <p class="text-gray-600 mb-4">
+                    See who paid what, who owes whom, and track imbalances instantly.
+                </p>
+                <ul class="text-sm text-gray-500 space-y-2">
+                    <li><i class="fas fa-check text-green-500 mr-2"></i> Partner contributions</li>
+                    <li><i class="fas fa-check text-green-500 mr-2"></i> Balance summary</li>
+                    <li><i class="fas fa-check text-green-500 mr-2"></i> Highest contributor</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works -->
+<section id="how-it-works" class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">How It Works</h2>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                Get started in minutes with these simple steps
+            </p>
+        </div>
+        
+        <div class="grid md:grid-cols-4 gap-8">
+            <div class="text-center">
+                <div class="w-16 h-16 gradient-bg rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">1</div>
+                <h3 class="font-semibold mb-2">Sign Up</h3>
+                <p class="text-gray-500 text-sm">Create your free account in seconds</p>
+            </div>
+            <div class="text-center">
+                <div class="w-16 h-16 gradient-bg rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">2</div>
+                <h3 class="font-semibold mb-2">Add Partners</h3>
+                <p class="text-gray-500 text-sm">Add them manually</p>
+            </div>
+            <div class="text-center">
+                <div class="w-16 h-16 gradient-bg rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">3</div>
+                <h3 class="font-semibold mb-2">Track Expenses</h3>
+                <p class="text-gray-500 text-sm">Add expenses as they happen</p>
+            </div>
+            <div class="text-center">
+                <div class="w-16 h-16 gradient-bg rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">4</div>
+                <h3 class="font-semibold mb-2">Settle Up</h3>
+                <p class="text-gray-500 text-sm">See balances and settle easily</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<!-- Testimonials -->
+<!-- <section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">Loved by users worldwide</h2>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                See what our users have to say about ShareSpend
+            </p>
+        </div>
+        
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="bg-gray-50 p-6 rounded-xl">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-purple-200 rounded-full flex items-center justify-center text-purple-600 font-bold">RK</div>
+                    <div class="ml-3">
+                        <div class="font-semibold">Rahul Kumar</div>
+                        <div class="text-sm text-gray-500">Product Manager</div>
+                    </div>
+                </div>
+                <p class="text-gray-600">
+                    "ShareSpend has been a game-changer for our team outings. No more awkward money conversations!"
+                </p>
+                <div class="flex text-yellow-400 mt-3">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+            </div>
+            
+            <div class="bg-gray-50 p-6 rounded-xl">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-purple-200 rounded-full flex items-center justify-center text-purple-600 font-bold">PS</div>
+                    <div class="ml-3">
+                        <div class="font-semibold">Priya Singh</div>
+                        <div class="text-sm text-gray-500">Travel Enthusiast</div>
+                    </div>
+                </div>
+                <p class="text-gray-600">
+                    "Trip planning with friends just got easier. Love how it shows exactly who owes what!"
+                </p>
+                <div class="flex text-yellow-400 mt-3">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+            </div>
+            
+            <div class="bg-gray-50 p-6 rounded-xl">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-purple-200 rounded-full flex items-center justify-center text-purple-600 font-bold">AM</div>
+                    <div class="ml-3">
+                        <div class="font-semibold">Amit Mehta</div>
+                        <div class="text-sm text-gray-500">Startup Founder</div>
+                    </div>
+                </div>
+                <p class="text-gray-600">
+                    "Perfect for our small team. The expense tracking and reports save us hours every month."
+                </p>
+                <div class="flex text-yellow-400 mt-3">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> -->
+
+<!-- CTA Section -->
+<section class="gradient-bg text-white py-16">
+    <div class="max-w-4xl mx-auto text-center px-4">
+        <h2 class="text-3xl font-bold mb-4">Ready to simplify expense sharing?</h2>
+        <p class="text-xl text-purple-100 mb-8">
+            Join thousands of users who trust ShareSpend for their shared expenses
+        </p>
+        <a href="{% url 'Authentication:register' %}" class="bg-white text-purple-600 px-8 py-3 rounded-lg font-semibold inline-flex items-center hover:shadow-xl transition-all hover-lift">
+            Get Started For Free
+            <i class="fas fa-arrow-right ml-2"></i>
+        </a>
+        <p class="text-sm text-purple-200 mt-4">
+            No credit card required • Free forever plan 
+        </p>
+    </div>
+</section>
+{% endblock %}
