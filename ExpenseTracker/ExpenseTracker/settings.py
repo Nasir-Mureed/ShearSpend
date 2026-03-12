@@ -26,7 +26,7 @@ SECRET_KEY = 'k6%s=v3z&dx(jc6g5z$4^4z@1je67i69e+hy$(^(%^=eoh)few'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['ExpesneTracker.onrender.com']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
