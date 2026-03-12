@@ -1,0 +1,628 @@
+{% extends 'base.html' %}
+
+{% block title %}Contact Us - ShareSpend{% endblock %}
+
+{% block extra_css %}
+<style>
+    .page-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 60px 0;
+        margin-top: -1px;
+        color: white;
+        text-align: center;
+    }
+
+    .page-header-content {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .page-title {
+        font-size: 3rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+    }
+
+    .page-subtitle {
+        font-size: 1.2rem;
+        opacity: 0.9;
+        line-height: 1.6;
+    }
+
+    .contact-container {
+        max-width: 1200px;
+        margin: -80px auto 60px;
+        padding: 0 20px;
+        position: relative;
+        z-index: 10;
+    }
+
+    /* Contact Cards Grid */
+    .contact-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        margin-bottom: 50px;
+    }
+
+    .contact-card {
+        background: white;
+        border-radius: 20px;
+        padding: 40px 30px;
+        text-align: center;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .contact-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        transform: scaleX(0);
+        transition: transform 0.3s ease;
+    }
+
+    .contact-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 30px 60px rgba(102, 126, 234, 0.2);
+    }
+
+    .contact-card:hover::before {
+        transform: scaleX(1);
+    }
+
+    .contact-icon {
+        width: 100px;
+        height: 100px;
+        margin: 0 auto 25px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+    }
+
+    .contact-card:hover .contact-icon {
+        transform: scale(1.1);
+        box-shadow: 0 15px 30px rgba(102, 126, 234, 0.3);
+    }
+
+    .contact-icon i {
+        color: white;
+        font-size: 40px;
+    }
+
+    .contact-card h3 {
+        color: #333;
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 15px;
+    }
+
+    .contact-card p {
+        color: #666;
+        font-size: 16px;
+        line-height: 1.6;
+        margin-bottom: 25px;
+    }
+
+    .contact-detail {
+        background: #f8faff;
+        padding: 15px 20px;
+        border-radius: 12px;
+        margin-bottom: 20px;
+        border: 1px solid #e8eaf6;
+    }
+
+    .contact-label {
+        color: #667eea;
+        font-size: 14px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 5px;
+    }
+
+    .contact-value {
+        color: #333;
+        font-size: 18px;
+        font-weight: 500;
+        word-break: break-word;
+    }
+
+    .contact-action {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 12px 30px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 16px;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+    }
+
+    .contact-action:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 15px 30px rgba(102, 126, 234, 0.3);
+        color: white;
+    }
+
+    .contact-action i {
+        font-size: 18px;
+    }
+
+    /* Gmail specific */
+    .gmail-card .contact-icon {
+        background: linear-gradient(135deg, #EA4335 0%, #FBBC05 100%);
+    }
+
+    .gmail-card .contact-action {
+        background: linear-gradient(135deg, #EA4335 0%, #FBBC05 100%);
+    }
+
+    .gmail-card .contact-label {
+        color: #EA4335;
+    }
+
+    /* WhatsApp specific */
+    .whatsapp-card .contact-icon {
+        background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    }
+
+    .whatsapp-card .contact-action {
+        background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    }
+
+    .whatsapp-card .contact-label {
+        color: #25D366;
+    }
+
+    /* LinkedIn specific */
+    .linkedin-card .contact-icon {
+        background: linear-gradient(135deg, #0077B5 0%, #00A0DC 100%);
+    }
+
+    .linkedin-card .contact-action {
+        background: linear-gradient(135deg, #0077B5 0%, #00A0DC 100%);
+    }
+
+    .linkedin-card .contact-label {
+        color: #0077B5;
+    }
+
+    /* Contact Form Section */
+    .contact-form-section {
+        background: white;
+        border-radius: 20px;
+        padding: 40px;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        margin-top: 50px;
+    }
+
+    .form-title {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .form-title h2 {
+        color: #333;
+        font-size: 28px;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+
+    .form-title p {
+        color: #666;
+        font-size: 16px;
+    }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group.full-width {
+        grid-column: span 2;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 8px;
+        color: #333;
+        font-weight: 500;
+        font-size: 14px;
+    }
+
+    label i {
+        margin-right: 8px;
+        color: #667eea;
+    }
+
+    input, textarea {
+        width: 100%;
+        padding: 14px 15px;
+        border: 2px solid #e1e1e1;
+        border-radius: 12px;
+        font-size: 15px;
+        transition: all 0.3s ease;
+        font-family: inherit;
+    }
+
+    input:hover, textarea:hover {
+        border-color: #b0b0b0;
+    }
+
+    input:focus, textarea:focus {
+        outline: none;
+        border-color: #667eea;
+        box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+    }
+
+    textarea {
+        resize: vertical;
+        min-height: 150px;
+    }
+
+    .btn-submit {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        padding: 16px 40px;
+        border-radius: 50px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .btn-submit:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 15px 30px rgba(102, 126, 234, 0.3);
+    }
+
+    /* FAQ Section */
+    .faq-section {
+        margin-top: 50px;
+    }
+
+    .faq-title {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .faq-title h2 {
+        color: #333;
+        font-size: 28px;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+
+    .faq-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 20px;
+    }
+
+    .faq-item {
+        background: #f8faff;
+        border-radius: 15px;
+        padding: 25px;
+        transition: all 0.3s ease;
+    }
+
+    .faq-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.1);
+    }
+
+    .faq-question {
+        color: #333;
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .faq-question i {
+        color: #667eea;
+        font-size: 20px;
+    }
+
+    .faq-answer {
+        color: #666;
+        font-size: 15px;
+        line-height: 1.6;
+        margin-left: 30px;
+    }
+
+    /* Business Hours */
+    .hours-section {
+        background: #f8faff;
+        border-radius: 20px;
+        padding: 30px;
+        margin-top: 50px;
+        text-align: center;
+        border: 1px solid #e8eaf6;
+    }
+
+    .hours-section h3 {
+        color: #333;
+        font-size: 22px;
+        font-weight: 600;
+        margin-bottom: 20px;
+    }
+
+    .hours-grid {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        flex-wrap: wrap;
+    }
+
+    .hours-item {
+        text-align: center;
+    }
+
+    .hours-day {
+        color: #667eea;
+        font-weight: 600;
+        margin-bottom: 5px;
+    }
+
+    .hours-time {
+        color: #333;
+        font-size: 18px;
+        font-weight: 500;
+    }
+
+    .emergency-note {
+        margin-top: 20px;
+        padding: 15px;
+        background: #fff3e0;
+        border-radius: 10px;
+        color: #f57c00;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .page-title {
+            font-size: 2.2rem;
+        }
+
+        .page-subtitle {
+            font-size: 1rem;
+        }
+
+        .contact-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .form-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .form-group.full-width {
+            grid-column: span 1;
+        }
+
+        .faq-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .hours-grid {
+            flex-direction: column;
+            gap: 20px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .page-title {
+            font-size: 1.8rem;
+        }
+
+        .contact-card {
+            padding: 30px 20px;
+        }
+
+        .contact-form-section {
+            padding: 30px 20px;
+        }
+
+        .contact-icon {
+            width: 80px;
+            height: 80px;
+        }
+
+        .contact-icon i {
+            font-size: 32px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<div class="page-header">
+    <div class="page-header-content">
+        <h1 class="page-title">Get in Touch</h1>
+        <p class="page-subtitle">We'd love to hear from you! Choose your preferred way to reach us.</p>
+    </div>
+</div><br><br><br><br>
+
+<!-- Contact Container -->
+<div class="contact-container">
+    <!-- Contact Cards Grid -->
+    <div class="contact-grid">
+        <!-- Gmail Card -->
+        <div class="contact-card gmail-card">
+            <div class="contact-icon">
+                <i class="fab fa-google"></i>
+            </div>
+            <h3>Email Us</h3>
+            <p>Get quick response via email for all your queries</p>
+            <div class="contact-detail">
+                <div class="contact-label">Primary Email</div>
+                <div class="contact-value">nasir.mureed.nm@gmail.com</div>
+            </div>
+            <div class="contact-detail">
+                <div class="contact-label">Business Inquiries</div>
+                <div class="contact-value">netcode920@gmail.com</div>
+            </div>
+            <a href="mailto:nasir.mureed.nm@gmail.com" class="contact-action">
+                <i class="fas fa-envelope"></i>
+                Send Email
+            </a>
+        </div>
+
+        <!-- WhatsApp Card -->
+        <div class="contact-card whatsapp-card">
+            <div class="contact-icon">
+                <i class="fab fa-whatsapp"></i>
+            </div>
+            <h3>WhatsApp</h3>
+            <p>Instant messaging support for quick assistance</p>
+            <div class="contact-detail">
+                <div class="contact-label">Business WhatsApp</div>
+                <div class="contact-value">+92 (347) 288-3331</div>
+            </div>
+           
+            <a href="https://wa.me/923472883331?text=Hello%20ShareSpend%2C%20I%20need%20assistance%20with..." 
+               target="_blank" 
+               class="contact-action">
+                <i class="fab fa-whatsapp"></i>
+                Chat on WhatsApp
+            </a>
+        </div>
+
+
+    </div>
+
+ 
+
+  
+
+    <!-- Business Hours -->
+    <div class="hours-section">
+        <h3><i class="fas fa-clock"></i> Business Hours</h3>
+        <div class="hours-grid">
+            <div class="hours-item">
+                <div class="hours-day">Monday - Friday</div>
+                <div class="hours-time">9:00 AM - 6:00 PM (EST)</div>
+            </div>
+            <div class="hours-item">
+                <div class="hours-day">Saturday</div>
+                <div class="hours-time">10:00 AM - 4:00 PM (EST)</div>
+            </div>
+            <div class="hours-item">
+                <div class="hours-day">Sunday</div>
+                <div class="hours-time">Closed</div>
+            </div>
+        </div>
+        <div class="emergency-note">
+            <i class="fas fa-exclamation-circle"></i>
+            Emergency support available 24/7 via WhatsApp for critical issues
+        </div>
+    </div>
+
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Form submission handling
+    document.getElementById('contactForm')?.addEventListener('submit', function(e) {
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const subject = document.getElementById('subject').value;
+        const message = document.getElementById('message').value.trim();
+        const submitBtn = document.getElementById('submitBtn');
+        
+        let isValid = true;
+        let errorMessage = '';
+
+        // Validate name
+        if (!name || name.length < 2) {
+            isValid = false;
+            errorMessage = 'Please enter your full name.';
+        }
+
+        // Validate email
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!email || !emailRegex.test(email)) {
+            isValid = false;
+            errorMessage = errorMessage || 'Please enter a valid email address.';
+        }
+
+        // Validate subject
+        if (!subject) {
+            isValid = false;
+            errorMessage = errorMessage || 'Please select a subject.';
+        }
+
+        // Validate message
+        if (!message || message.length < 10) {
+            isValid = false;
+            errorMessage = errorMessage || 'Please enter a message (at least 10 characters).';
+        }
+
+        if (!isValid) {
+            e.preventDefault();
+            alert(errorMessage);
+            return false;
+        }
+
+        // Show loading state
+        submitBtn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Sending...';
+        submitBtn.disabled = true;
+        
+        return true;
+    });
+
+    // Auto-hide messages after 5 seconds
+    setTimeout(function() {
+        const messages = document.querySelectorAll('.message');
+        messages.forEach(function(message) {
+            if (message) {
+                message.style.transition = 'opacity 0.5s';
+                message.style.opacity = '0';
+                setTimeout(function() {
+                    if (message.parentNode) {
+                        message.remove();
+                    }
+                }, 500);
+            }
+        });
+    }, 5000);
+</script>
+{% endblock %}

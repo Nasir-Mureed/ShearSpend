@@ -44,8 +44,8 @@
                 
                 <!-- Desktop Navigation -->
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="{% url 'Dashboard:home' %}" class="text-gray-600 hover:text-gray-900 px-3 py-2 text-sm font-medium transition-all">
-                        Home
+                    <a href="{% url 'Dashboard:dashboard' %}" class="text-gray-600 hover:text-gray-900 px-3 py-2 text-sm font-medium transition-all">
+                        Dashboard
                     </a>
                     <a href="#features" class="text-gray-600 hover:text-gray-900 px-3 py-2 text-sm font-medium transition-all">
                         Features
@@ -70,14 +70,13 @@
                             <!-- Dropdown Menu -->
                             <div x-show="open" @click.away="open = false" class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-1 border">
                                 <a href="{% url 'Dashboard:home' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                    <i class="fas fa-tachometer-alt mr-2"></i> Dashboard
+                                    <i class="fas fa-home mr-2"></i> Home
                                 </a>
-                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                    <i class="fas fa-user-circle mr-2"></i> Profile
+
+                                <a href="{% url 'Dashboard:contact' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50">
+                                    <i class="fa fa-phone mr-2"></i> Contact Us
                                 </a>
-                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                    <i class="fas fa-cog mr-2"></i> Settings
-                                </a>
+
                                 <div class="border-t my-1"></div>
                                 <a href="{% url 'Authentication:logout' %}" class="block px-4 py-2 text-sm text-red-600 hover:bg-red-50">
                                     <i class="fas fa-sign-out-alt mr-2"></i> Logout
@@ -89,7 +88,7 @@
                             Login
                         </a>
                         <a href="{% url 'Authentication:register' %}" class="gradient-bg text-white px-4 py-2 rounded-lg text-sm font-medium hover:shadow-lg transition-all">
-                            Sign Up Free
+                            Sign Up 
                         </a>
                     {% endif %}
                 </div>
@@ -104,10 +103,9 @@
             
             <!-- Mobile Menu -->
             <div id="mobile-menu" class="hidden md:hidden pb-4">
-                <a href="{% url 'Dashboard:home' %}" class="block py-2 text-gray-600 hover:text-gray-900">Home</a>
+                <a href="{% url 'Dashboard:dashboard' %}" class="block py-2 text-gray-600 hover:text-gray-900">Dashboard</a>
                 <a href="#features" class="block py-2 text-gray-600 hover:text-gray-900">Features</a>
                 <a href="#how-it-works" class="block py-2 text-gray-600 hover:text-gray-900">How It Works</a>
-                <a href="#pricing" class="block py-2 text-gray-600 hover:text-gray-900">Pricing</a>
             </div>
         </div>
     </nav>
@@ -157,10 +155,9 @@
                         Smart expense sharing for modern teams and friends. Track, split, and settle expenses effortlessly.
                     </p>
                     <div class="flex space-x-4 mt-4">
-                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-github"></i></a>
+                        <a href="https://m.facebook.com/profile.php?id=100076844704394" target="_blank" class="text-gray-400 hover:text-white"><i class="fab fa-facebook"></i></a>
+                        <a href="https://www.linkedin.com/in/nasirmureed/" target="_blank" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://github.com/Nasir-Mureed" target="_blank" class="text-gray-400 hover:text-white"><i class="fab fa-github"></i></a>
                     </div>
                 </div>
                 
@@ -169,9 +166,9 @@
                     <h3 class="font-semibold text-lg mb-4">Product</h3>
                     <ul class="space-y-2">
                         <li><a href="#features" class="text-gray-400 hover:text-white text-sm">Features</a></li>
-                        <li><a href="#pricing" class="text-gray-400 hover:text-white text-sm">Pricing</a></li>
+                        <!-- <li><a href="#pricing" class="text-gray-400 hover:text-white text-sm">Pricing</a></li> -->
                         <li><a href="#" class="text-gray-400 hover:text-white text-sm">FAQ</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white text-sm">API</a></li>
+                        <!-- <li><a href="#" class="text-gray-400 hover:text-white text-sm">API</a></li> -->
                     </ul>
                 </div>
                 
@@ -180,9 +177,9 @@
                     <h3 class="font-semibold text-lg mb-4">Company</h3>
                     <ul class="space-y-2">
                         <li><a href="#" class="text-gray-400 hover:text-white text-sm">About Us</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white text-sm">Blog</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white text-sm">Careers</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white text-sm">Contact</a></li>
+                        <!-- <li><a href="#" class="text-gray-400 hover:text-white text-sm">Blog</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white text-sm">Careers</a></li> -->
+                        <li><a href="{% url 'Dashboard:contact' %}" class="text-gray-400 hover:text-white text-sm">Contact</a></li>
                     </ul>
                 </div>
                 
@@ -192,8 +189,8 @@
                     <ul class="space-y-2">
                         <li><a href="#" class="text-gray-400 hover:text-white text-sm">Privacy Policy</a></li>
                         <li><a href="#" class="text-gray-400 hover:text-white text-sm">Terms of Service</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white text-sm">Cookie Policy</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white text-sm">Security</a></li>
+                        <!-- <li><a href="#" class="text-gray-400 hover:text-white text-sm">Cookie Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white text-sm">Security</a></li> -->
                     </ul>
                 </div>
             </div>
