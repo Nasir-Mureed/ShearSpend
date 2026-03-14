@@ -240,5 +240,6 @@ def get_client_ip(request):
 
 def logout_view(request):
     logout(request)
+    request.session.flush()  # Clear session data
     messages.info(request, 'You have been logged out.')
-    return redirect('Authentication:login')
+    return redirect('Dashboard:home')

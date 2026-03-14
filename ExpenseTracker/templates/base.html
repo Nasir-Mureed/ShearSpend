@@ -29,86 +29,70 @@
 </head>
 <body class="bg-gray-50 font-sans antialiased">
     <!-- Navigation Header -->
-    <nav class="bg-white shadow-lg border-b border-gray-200 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <!-- Logo and Brand -->
-                <div class="flex items-center">
-                    <a href="{% url 'Dashboard:home' %}" class="flex items-center space-x-3">
-                        <div class="w-8 h-8 gradient-bg rounded-lg flex items-center justify-center">
-                            <i class="fas fa-hand-holding-usd text-white text-sm"></i>
-                        </div>
-                        <span class="font-bold text-xl text-gray-800">ShareSpend</span>
-                    </a>
-                </div>
-                
-                <!-- Desktop Navigation -->
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="{% url 'Dashboard:dashboard' %}" class="text-gray-600 hover:text-gray-900 px-3 py-2 text-sm font-medium transition-all">
-                        Dashboard
-                    </a>
-                    <a href="#features" class="text-gray-600 hover:text-gray-900 px-3 py-2 text-sm font-medium transition-all">
-                        Features
-                    </a>
-                    <a href="#how-it-works" class="text-gray-600 hover:text-gray-900 px-3 py-2 text-sm font-medium transition-all">
-                        How It Works
-                    </a>
-                </div>
-                
-                <!-- Auth Buttons -->
-                <div class="flex items-center space-x-4">
-                    {% if user.is_authenticated %}
-                        <!-- User Menu -->
-                        <div class="relative" x-data="{ open: false }">
-                            <button @click="open = !open" class="flex items-center space-x-2 text-gray-700 hover:text-gray-900">
-                                <span class="text-sm font-medium">{{ user.username }}</span>
-                                <div class="w-8 h-8 gradient-bg rounded-full flex items-center justify-center text-white">
-                                    <i class="fas fa-user text-sm"></i>
-                                </div>
-                            </button>
-                            
-                            <!-- Dropdown Menu -->
-                            <div x-show="open" @click.away="open = false" class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-1 border">
-                                <a href="{% url 'Dashboard:home' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                    <i class="fas fa-home mr-2"></i> Home
-                                </a>
-
-                                <a href="{% url 'Dashboard:contact' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50">
-                                    <i class="fa fa-phone mr-2"></i> Contact Us
-                                </a>
-
-                                <div class="border-t my-1"></div>
-                                <a href="{% url 'Authentication:logout' %}" class="block px-4 py-2 text-sm text-red-600 hover:bg-red-50">
-                                    <i class="fas fa-sign-out-alt mr-2"></i> Logout
-                                </a>
-                            </div>
-                        </div>
-                    {% else %}
-                        <a href="{% url 'Authentication:login' %}" class="text-gray-600 hover:text-gray-900 px-3 py-2 text-sm font-medium">
-                            Login
-                        </a>
-                        <a href="{% url 'Authentication:register' %}" class="gradient-bg text-white px-4 py-2 rounded-lg text-sm font-medium hover:shadow-lg transition-all">
-                            Sign Up 
-                        </a>
-                    {% endif %}
-                </div>
-                
-                <!-- Mobile Menu Button -->
-                <div class="md:hidden flex items-center">
-                    <button type="button" class="text-gray-500 hover:text-gray-600" onclick="toggleMobileMenu()">
-                        <i class="fas fa-bars text-2xl"></i>
-                    </button>
-                </div>
+  <nav class="bg-white shadow-lg border-b border-gray-200 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+            
+            <!-- Logo -->
+            <div class="flex items-center">
+                <a href="{% url 'Dashboard:home' %}" class="flex items-center space-x-3">
+                    <div class="w-8 h-8 gradient-bg rounded-lg flex items-center justify-center">
+                        <i class="fas fa-hand-holding-usd text-white text-sm"></i>
+                    </div>
+                    <span class="font-bold text-xl text-gray-800">ShareSpend</span>
+                </a>
             </div>
             
-            <!-- Mobile Menu -->
-            <div id="mobile-menu" class="hidden md:hidden pb-4">
-                <a href="{% url 'Dashboard:dashboard' %}" class="block py-2 text-gray-600 hover:text-gray-900">Dashboard</a>
-                <a href="#features" class="block py-2 text-gray-600 hover:text-gray-900">Features</a>
-                <a href="#how-it-works" class="block py-2 text-gray-600 hover:text-gray-900">How It Works</a>
+            <!-- Desktop Links & Auth (Hidden on Mobile) -->
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="{% url 'Dashboard:dashboard' %}" class="text-gray-600 hover:text-gray-900 text-sm font-medium">Dashboard</a>
+                <a href="#features" class="text-gray-600 hover:text-gray-900 text-sm font-medium">Features</a>
+                
+                {% if user.is_authenticated %}
+                    <!-- Alpine.js User Dropdown -->
+                    <div class="relative" x-data="{ open: false }">
+                        <button @click="open = !open" class="flex items-center space-x-2 text-gray-700">
+                            <span class="text-sm font-medium">{{ user.username }}</span>
+                            <div class="w-8 h-8 gradient-bg rounded-full flex items-center justify-center text-white">
+                                <i class="fas fa-user text-sm"></i>
+                            </div>
+                        </button>
+                        <div x-show="open" @click.away="open = false" class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-1 border">
+                            <a href="{% url 'Authentication:logout' %}" class="block px-4 py-2 text-sm text-red-600">Logout</a>
+                        </div>
+                    </div>
+                {% else %}
+                    <a href="{% url 'Authentication:login' %}" class="text-gray-600 text-sm font-medium">Login</a>
+                    <a href="{% url 'Authentication:register' %}" class="gradient-bg text-white px-4 py-2 rounded-lg text-sm font-medium">Sign Up</a>
+                {% endif %}
+            </div>
+            
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden flex items-center">
+                <button type="button" class="text-gray-500" onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
             </div>
         </div>
-    </nav>
+        
+        <!-- Mobile Menu (Links + Auth for small screens) -->
+        <div id="mobile-menu" class="hidden md:hidden pb-4 border-t border-gray-100">
+            <a href="{% url 'Dashboard:dashboard' %}" class="block py-3 text-gray-600">Dashboard</a>
+            <a href="#features" class="block py-3 text-gray-600">Features</a>
+            
+            <div class="pt-4 border-t border-gray-100">
+                {% if user.is_authenticated %}
+                    <p class="text-xs text-gray-400 uppercase mb-2">Account</p>
+                    <a href="{% url 'Authentication:logout' %}" class="block py-2 text-red-600">Logout</a>
+                {% else %}
+                    <a href="{% url 'Authentication:login' %}" class="block py-2 text-gray-600">Login</a>
+                    <a href="{% url 'Authentication:register' %}" class="block mt-2 text-center gradient-bg text-white py-2 rounded-lg">Sign Up</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</nav>
+
 
     <!-- Messages/Alerts -->
     {% if messages %}
